@@ -911,8 +911,25 @@ final class BlockTypeIds{
 	public const SHORT_DRY_GRASS = 10879;
 	public const TALL_DRY_GRASS = 10880;
 	public const WILDFLOWERS = 10881;
+	public const POINTED_DRIPSTONE = 10882;
+	public const SEAGRASS = 10883;
+	public const KELP = 10884;
+	public const PALE_MOSS_BLOCK = 10885;
+	public const PALE_HANGING_MOSS = 10886;
+	public const PALE_MOSS_CARPET = 10887;
+	public const OPEN_EYEBLOSSOM = 10888;
+	public const CLOSED_EYEBLOSSOM = 10889;
+	public const PALE_OAK_SAPLING = 10890;
+	public const CREAKING_HEART = 10891;
+	public const PISTON = 10892;
+	public const STICKY_PISTON = 10893;
+	public const PISTON_ARM_COLLISION = 10894;
+	public const STICKY_PISTON_ARM_COLLISION = 10895;
+	public const DISPENSER = 10896;
+	public const DROPPER = 10897;
+	public const OBSERVER = 10898;
 
-	public const FIRST_UNUSED_BLOCK_ID = 10882;
+	public const FIRST_UNUSED_BLOCK_ID = 10899;
 
 	private static int $nextDynamicId = self::FIRST_UNUSED_BLOCK_ID;
 

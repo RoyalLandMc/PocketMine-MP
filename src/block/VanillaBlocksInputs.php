@@ -1210,5 +1210,24 @@ final class VanillaBlocksInputs extends RegistrySource{
 		self::register("short_dry_grass", fn(BID $id) => new DryGrass($id, "Short Dry Grass", new Info(BreakInfo::instant(ToolType::SHEARS, 1))));
 		self::register("tall_dry_grass", fn(BID $id) => new DryGrass($id, "Tall Dry Grass", new Info(BreakInfo::instant(ToolType::SHEARS, 1))));
 		self::register("wildflowers", fn(BID $id) => new Wildflowers($id, "Wildflowers", new Info(BreakInfo::instant())));
+
+		self::register("pointed_dripstone", fn(BID $id) => new PointedDripstone($id, "Pointed Dripstone", new Info(new BreakInfo(1.5))));
+		self::register("seagrass", fn(BID $id) => new Seagrass($id, "Seagrass", new Info(BreakInfo::instant(ToolType::SHEARS, 1))));
+		self::register("kelp", fn(BID $id) => new Kelp($id, "Kelp", new Info(BreakInfo::instant())));
+		self::register("pale_moss_block", fn(BID $id) => new Opaque($id, "Pale Moss Block", new Info(BreakInfo::hoe(0.1))));
+		self::register("pale_hanging_moss", fn(BID $id) => new PaleHangingMoss($id, "Pale Hanging Moss", new Info(BreakInfo::instant(ToolType::SHEARS, 1))));
+		self::register("pale_moss_carpet", fn(BID $id) => new PaleMossCarpet($id, "Pale Moss Carpet", new Info(new BreakInfo(0.1))));
+		$eyeblossomInfo = new Info(BreakInfo::instant(), [Tags::POTTABLE_PLANTS]);
+		self::register("open_eyeblossom", fn(BID $id) => new Flower($id, "Open Eyeblossom", $eyeblossomInfo));
+		self::register("closed_eyeblossom", fn(BID $id) => new Flower($id, "Closed Eyeblossom", $eyeblossomInfo));
+		self::register("pale_oak_sapling", fn(BID $id) => new CherrySapling($id, "Pale Oak Sapling", new Info(BreakInfo::instant(), [Tags::POTTABLE_PLANTS])));
+		self::register("creaking_heart", fn(BID $id) => new CreakingHeart($id, "Creaking Heart", new Info(BreakInfo::axe(5.0))));
+		self::register("piston", fn(BID $id) => new Piston($id, "Piston", new Info(new BreakInfo(1.5, ToolType::PICKAXE))));
+		self::register("sticky_piston", fn(BID $id) => new Piston($id, "Sticky Piston", new Info(new BreakInfo(1.5, ToolType::PICKAXE))));
+		self::register("piston_arm_collision", fn(BID $id) => new PistonArmCollision($id, "Piston Arm Collision", new Info(BreakInfo::indestructible())));
+		self::register("sticky_piston_arm_collision", fn(BID $id) => new PistonArmCollision($id, "Sticky Piston Arm Collision", new Info(BreakInfo::indestructible())));
+		self::register("dispenser", fn(BID $id) => new Dispenser($id, "Dispenser", new Info(BreakInfo::pickaxe(3.5, ToolTier::WOOD))));
+		self::register("dropper", fn(BID $id) => new Dispenser($id, "Dropper", new Info(BreakInfo::pickaxe(3.5, ToolTier::WOOD))));
+		self::register("observer", fn(BID $id) => new Observer($id, "Observer", new Info(BreakInfo::pickaxe(3.0, ToolTier::WOOD))));
 	}
 }

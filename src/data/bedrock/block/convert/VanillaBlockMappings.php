@@ -24,6 +24,20 @@ declare(strict_types=1);
 namespace pocketmine\data\bedrock\block\convert;
 
 use pocketmine\block\ActivatorRail;
+use pocketmine\block\CreakingHeart;
+use pocketmine\block\Dispenser;
+use pocketmine\block\Kelp;
+use pocketmine\block\Observer;
+use pocketmine\block\PaleHangingMoss;
+use pocketmine\block\PaleMossCarpet;
+use pocketmine\block\Piston;
+use pocketmine\block\PistonArmCollision;
+use pocketmine\block\PointedDripstone;
+use pocketmine\block\Seagrass;
+use pocketmine\block\utils\CreakingHeartState;
+use pocketmine\block\utils\DripstoneThickness;
+use pocketmine\block\utils\MossCarpetSide;
+use pocketmine\block\utils\SeagrassType;
 use pocketmine\block\AmethystCluster;
 use pocketmine\block\Anvil;
 use pocketmine\block\Bamboo;
@@ -1765,6 +1779,106 @@ final class VanillaBlockMappings{
 		$reg->mapSimple(Blocks::MOSS_CARPET(), Ids::MOSS_CARPET);
 		$reg->mapSimple(Blocks::SHORT_DRY_GRASS(), Ids::SHORT_DRY_GRASS);
 		$reg->mapSimple(Blocks::TALL_DRY_GRASS(), Ids::TALL_DRY_GRASS);
+
+		$reg->mapSimple(Blocks::PALE_MOSS_BLOCK(), Ids::PALE_MOSS_BLOCK);
+		$reg->mapSimple(Blocks::OPEN_EYEBLOSSOM(), Ids::OPEN_EYEBLOSSOM);
+		$reg->mapSimple(Blocks::CLOSED_EYEBLOSSOM(), Ids::CLOSED_EYEBLOSSOM);
+		$reg->mapModel(Model::create(Blocks::PALE_OAK_SAPLING(), Ids::PALE_OAK_SAPLING)->properties([
+			new BoolProperty(StateNames::AGE_BIT, fn(CherrySapling $b) => $b->isReady(), fn(CherrySapling $b, bool $v) => $b->setReady($v))
+		]));
+		$reg->mapModel(Model::create(Blocks::POINTED_DRIPSTONE(), Ids::POINTED_DRIPSTONE)->properties([
+			new ValueFromStringProperty(
+				StateNames::DRIPSTONE_THICKNESS,
+				EnumFromRawStateMap::string(DripstoneThickness::class, fn(DripstoneThickness $case) => match($case){
+					DripstoneThickness::TIP => StringValues::DRIPSTONE_THICKNESS_TIP,
+					DripstoneThickness::FRUSTUM => StringValues::DRIPSTONE_THICKNESS_FRUSTUM,
+					DripstoneThickness::MIDDLE => StringValues::DRIPSTONE_THICKNESS_MIDDLE,
+					DripstoneThickness::BASE => StringValues::DRIPSTONE_THICKNESS_BASE,
+					DripstoneThickness::MERGE => StringValues::DRIPSTONE_THICKNESS_MERGE
+				}),
+				fn(PointedDripstone $b) => $b->getThickness(),
+				fn(PointedDripstone $b, DripstoneThickness $v) => $b->setThickness($v)
+			),
+			new BoolProperty(StateNames::HANGING, fn(PointedDripstone $b) => $b->isHanging(), fn(PointedDripstone $b, bool $v) => $b->setHanging($v))
+		]));
+		$reg->mapModel(Model::create(Blocks::SEAGRASS(), Ids::SEAGRASS)->properties([
+			new ValueFromStringProperty(
+				StateNames::SEA_GRASS_TYPE,
+				EnumFromRawStateMap::string(SeagrassType::class, fn(SeagrassType $case) => match($case){
+					SeagrassType::DEFAULT => StringValues::SEA_GRASS_TYPE_DEFAULT,
+					SeagrassType::DOUBLE_TOP => StringValues::SEA_GRASS_TYPE_DOUBLE_TOP,
+					SeagrassType::DOUBLE_BOT => StringValues::SEA_GRASS_TYPE_DOUBLE_BOT
+				}),
+				fn(Seagrass $b) => $b->getSeagrassType(),
+				fn(Seagrass $b, SeagrassType $v) => $b->setSeagrassType($v)
+			)
+		]));
+		$reg->mapModel(Model::create(Blocks::KELP(), Ids::KELP)->properties([
+			new IntProperty(StateNames::KELP_AGE, Kelp::MIN_AGE, Kelp::MAX_AGE, fn(Kelp $b) => $b->getAge(), fn(Kelp $b, int $v) => $b->setAge($v))
+		]));
+		$reg->mapModel(Model::create(Blocks::PALE_HANGING_MOSS(), Ids::PALE_HANGING_MOSS)->properties([
+			new BoolProperty(StateNames::TIP, fn(PaleHangingMoss $b) => $b->isTip(), fn(PaleHangingMoss $b, bool $v) => $b->setTip($v))
+		]));
+		$paleCarpetProperties = [];
+		foreach([
+			[StateNames::PALE_MOSS_CARPET_SIDE_NORTH, \pocketmine\math\Facing::NORTH],
+			[StateNames::PALE_MOSS_CARPET_SIDE_SOUTH, \pocketmine\math\Facing::SOUTH],
+			[StateNames::PALE_MOSS_CARPET_SIDE_WEST, \pocketmine\math\Facing::WEST],
+			[StateNames::PALE_MOSS_CARPET_SIDE_EAST, \pocketmine\math\Facing::EAST]
+		] as [$stateName, $facing]){
+			$paleCarpetProperties[] = new ValueFromStringProperty(
+				$stateName,
+				EnumFromRawStateMap::string(MossCarpetSide::class, fn(MossCarpetSide $case) => match($case){
+					MossCarpetSide::NONE => "none",
+					MossCarpetSide::SHORT => "short",
+					MossCarpetSide::TALL => "tall"
+				}),
+				fn(PaleMossCarpet $b) => $b->getSideState($facing),
+				fn(PaleMossCarpet $b, MossCarpetSide $v) => $b->setSideState($facing, $v)
+			);
+		}
+		$paleCarpetProperties[] = new BoolProperty(StateNames::UPPER_BLOCK_BIT, fn(PaleMossCarpet $b) => $b->isUpper(), fn(PaleMossCarpet $b, bool $v) => $b->setUpper($v));
+		$reg->mapModel(Model::create(Blocks::PALE_MOSS_CARPET(), Ids::PALE_MOSS_CARPET)->properties($paleCarpetProperties));
+		$reg->mapModel(Model::create(Blocks::CREAKING_HEART(), Ids::CREAKING_HEART)->properties([
+			$commonProperties->pillarAxis,
+			new ValueFromStringProperty(
+				StateNames::CREAKING_HEART_STATE,
+				EnumFromRawStateMap::string(CreakingHeartState::class, fn(CreakingHeartState $case) => match($case){
+					CreakingHeartState::UPROOTED => StringValues::CREAKING_HEART_STATE_UPROOTED,
+					CreakingHeartState::DORMANT => StringValues::CREAKING_HEART_STATE_DORMANT,
+					CreakingHeartState::AWAKE => StringValues::CREAKING_HEART_STATE_AWAKE
+				}),
+				fn(CreakingHeart $b) => $b->getHeartState(),
+				fn(CreakingHeart $b, CreakingHeartState $v) => $b->setHeartState($v)
+			),
+			new BoolProperty(StateNames::NATURAL, fn(CreakingHeart $b) => $b->isNatural(), fn(CreakingHeart $b, bool $v) => $b->setNatural($v))
+		]));
+		$reg->mapModel(Model::create(Blocks::PISTON(), Ids::PISTON)->properties([$commonProperties->anyFacingClassic]));
+		$reg->mapModel(Model::create(Blocks::STICKY_PISTON(), Ids::STICKY_PISTON)->properties([$commonProperties->anyFacingClassic]));
+		$reg->mapModel(Model::create(Blocks::PISTON_ARM_COLLISION(), Ids::PISTON_ARM_COLLISION)->properties([$commonProperties->anyFacingClassic]));
+		$reg->mapModel(Model::create(Blocks::STICKY_PISTON_ARM_COLLISION(), Ids::STICKY_PISTON_ARM_COLLISION)->properties([$commonProperties->anyFacingClassic]));
+		foreach([[Blocks::DISPENSER(), Ids::DISPENSER], [Blocks::DROPPER(), Ids::DROPPER]] as [$block, $id]){
+			$reg->mapModel(Model::create($block, $id)->properties([
+				$commonProperties->anyFacingClassic,
+				new BoolProperty(StateNames::TRIGGERED_BIT, fn(Dispenser $b) => $b->isTriggered(), fn(Dispenser $b, bool $v) => $b->setTriggered($v))
+			]));
+		}
+		$reg->mapModel(Model::create(Blocks::OBSERVER(), Ids::OBSERVER)->properties([
+			new ValueFromStringProperty(
+				StateNames::MC_FACING_DIRECTION,
+				IntFromRawStateMap::string([
+					\pocketmine\math\Facing::DOWN => "down",
+					\pocketmine\math\Facing::UP => "up",
+					\pocketmine\math\Facing::NORTH => "north",
+					\pocketmine\math\Facing::SOUTH => "south",
+					\pocketmine\math\Facing::WEST => "west",
+					\pocketmine\math\Facing::EAST => "east"
+				]),
+				fn(Observer $b) => $b->getFacing(),
+				fn(Observer $b, int $v) => $b->setFacing($v)
+			),
+			new BoolProperty(StateNames::POWERED_BIT, fn(Observer $b) => $b->isPowered(), fn(Observer $b, bool $v) => $b->setPowered($v))
+		]));
 
 		foreach([Blocks::BEE_NEST(), Blocks::BEEHIVE()] as $block){
 			$reg->mapModel(Model::create($block, $block instanceof BeeNest ? Ids::BEE_NEST : Ids::BEEHIVE)->properties([
