@@ -1275,6 +1275,12 @@ final class StringToItemParser extends StringToTParser{
 		$result->registerBlock("dispenser", fn() => Blocks::DISPENSER());
 		$result->registerBlock("dropper", fn() => Blocks::DROPPER());
 		$result->registerBlock("observer", fn() => Blocks::OBSERVER());
+		$result->registerBlock("turtle_egg", fn() => Blocks::TURTLE_EGG());
+		$result->registerBlock("sniffer_egg", fn() => Blocks::SNIFFER_EGG());
+		$result->registerBlock("scaffolding", fn() => Blocks::SCAFFOLDING());
+		$result->registerBlock("frog_spawn", fn() => Blocks::FROG_SPAWN());
+		$result->registerBlock("conduit", fn() => Blocks::CONDUIT());
+		$result->registerBlock("honey_block", fn() => Blocks::HONEY_BLOCK());
 		$result->registerBlock("wither_rose", fn() => Blocks::WITHER_ROSE());
 		$result->registerBlock("wither_skeleton_skull", fn() => Blocks::MOB_HEAD()->setMobHeadType(MobHeadType::WITHER_SKELETON));
 		$result->registerBlock("wood", fn() => Blocks::OAK_LOG()->setStripped(false));

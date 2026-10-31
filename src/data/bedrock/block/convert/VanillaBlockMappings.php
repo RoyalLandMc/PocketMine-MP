@@ -33,9 +33,13 @@ use pocketmine\block\PaleMossCarpet;
 use pocketmine\block\Piston;
 use pocketmine\block\PistonArmCollision;
 use pocketmine\block\PointedDripstone;
+use pocketmine\block\Scaffolding;
 use pocketmine\block\Seagrass;
+use pocketmine\block\SnifferEgg;
+use pocketmine\block\TurtleEgg;
 use pocketmine\block\utils\CreakingHeartState;
 use pocketmine\block\utils\DripstoneThickness;
+use pocketmine\block\utils\EggCrackState;
 use pocketmine\block\utils\MossCarpetSide;
 use pocketmine\block\utils\SeagrassType;
 use pocketmine\block\AmethystCluster;
@@ -1900,6 +1904,35 @@ final class VanillaBlockMappings{
 			),
 			new BoolProperty(StateNames::POWERED_BIT, fn(Observer $b) => $b->isPowered(), fn(Observer $b, bool $v) => $b->setPowered($v))
 		]));
+		$eggCrackStateMap = EnumFromRawStateMap::string(EggCrackState::class, fn(EggCrackState $case) => match($case){
+			EggCrackState::NO_CRACKS => StringValues::CRACKED_STATE_NO_CRACKS,
+			EggCrackState::CRACKED => StringValues::CRACKED_STATE_CRACKED,
+			EggCrackState::MAX_CRACKED => StringValues::CRACKED_STATE_MAX_CRACKED
+		});
+		$reg->mapModel(Model::create(Blocks::TURTLE_EGG(), Ids::TURTLE_EGG)->properties([
+			new ValueFromStringProperty(StateNames::CRACKED_STATE, $eggCrackStateMap, fn(TurtleEgg $b) => $b->getCrackState(), fn(TurtleEgg $b, EggCrackState $v) => $b->setCrackState($v)),
+			new ValueFromStringProperty(
+				StateNames::TURTLE_EGG_COUNT,
+				IntFromRawStateMap::string([
+					1 => StringValues::TURTLE_EGG_COUNT_ONE_EGG,
+					2 => StringValues::TURTLE_EGG_COUNT_TWO_EGG,
+					3 => StringValues::TURTLE_EGG_COUNT_THREE_EGG,
+					4 => StringValues::TURTLE_EGG_COUNT_FOUR_EGG
+				]),
+				fn(TurtleEgg $b) => $b->getCount(),
+				fn(TurtleEgg $b, int $v) => $b->setCount($v)
+			)
+		]));
+		$reg->mapModel(Model::create(Blocks::SNIFFER_EGG(), Ids::SNIFFER_EGG)->properties([
+			new ValueFromStringProperty(StateNames::CRACKED_STATE, $eggCrackStateMap, fn(SnifferEgg $b) => $b->getCrackState(), fn(SnifferEgg $b, EggCrackState $v) => $b->setCrackState($v))
+		]));
+		$reg->mapModel(Model::create(Blocks::SCAFFOLDING(), Ids::SCAFFOLDING)->properties([
+			new IntProperty(StateNames::STABILITY, Scaffolding::MIN_STABILITY, Scaffolding::MAX_STABILITY, fn(Scaffolding $b) => $b->getStability(), fn(Scaffolding $b, int $v) => $b->setStability($v)),
+			new BoolProperty(StateNames::STABILITY_CHECK, fn(Scaffolding $b) => $b->isStabilityCheck(), fn(Scaffolding $b, bool $v) => $b->setStabilityCheck($v))
+		]));
+		$reg->mapSimple(Blocks::FROG_SPAWN(), Ids::FROG_SPAWN);
+		$reg->mapSimple(Blocks::CONDUIT(), Ids::CONDUIT);
+		$reg->mapSimple(Blocks::HONEY_BLOCK(), Ids::HONEY_BLOCK);
 
 		foreach([Blocks::BEE_NEST(), Blocks::BEEHIVE()] as $block){
 			$reg->mapModel(Model::create($block, $block instanceof BeeNest ? Ids::BEE_NEST : Ids::BEEHIVE)->properties([

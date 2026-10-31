@@ -83,19 +83,21 @@ final class TileFactory{
 		$this->register(MobHead::class, ["Skull", "minecraft:skull"]);
 		$this->register(GlowingItemFrame::class, ["GlowItemFrame"]);
 		$this->register(HangingSign::class, ["HangingSign", "minecraft:hanging_sign"]);
+		$this->register(Dispenser::class, ["Dispenser", "minecraft:dispenser"]);
+		$this->register(Dropper::class, ["Dropper", "minecraft:dropper"]);
+		$this->register(Beehive::class, ["Beehive", "minecraft:beehive"]);
+		$this->register(Lodestone::class, ["Lodestone", "minecraft:lodestone"]);
+		$this->register(EndPortal::class, ["EndPortal", "minecraft:end_portal"]);
+		$this->register(PistonArm::class, ["PistonArm", "minecraft:piston_arm"]);
+		$this->register(Conduit::class, ["Conduit", "minecraft:conduit"]);
 
 		//TODO: ChalkboardBlock
 		//TODO: ChemistryTable
 		//TODO: CommandBlock
-		//TODO: Conduit
-		//TODO: Dispenser
-		//TODO: Dropper
 		//TODO: EndGateway
-		//TODO: EndPortal
 		//TODO: JigsawBlock
 		//TODO: MovingBlock
 		//TODO: NetherReactor
-		//TODO: PistonArm
 		//TODO: StructureBlock
 	}
 

@@ -218,6 +218,7 @@ final class VanillaBlocks{
 	private static ChemistryTable $_mCOMPOUND_CREATOR;
 	private static Concrete $_mCONCRETE;
 	private static ConcretePowder $_mCONCRETE_POWDER;
+	private static Conduit $_mCONDUIT;
 	private static ContinuousPotentSulfur $_mCONTINUOUS_POTENT_SULFUR;
 	private static Copper $_mCOPPER;
 	private static CopperBars $_mCOPPER_BARS;
@@ -471,6 +472,7 @@ final class VanillaBlocks{
 	private static Leaves $_mFLOWERING_AZALEA_LEAVES;
 	private static FlowerPot $_mFLOWER_POT;
 	private static Froglight $_mFROGLIGHT;
+	private static FrogSpawn $_mFROG_SPAWN;
 	private static FrostedIce $_mFROSTED_ICE;
 	private static Furnace $_mFURNACE;
 	private static GildedBlackstone $_mGILDED_BLACKSTONE;
@@ -499,6 +501,7 @@ final class VanillaBlocks{
 	private static HayBale $_mHAY_BALE;
 	private static HeavyCore $_mHEAVY_CORE;
 	private static Opaque $_mHONEYCOMB;
+	private static HoneyBlock $_mHONEY_BLOCK;
 	private static Hopper $_mHOPPER;
 	private static Ice $_mICE;
 	private static InfestedStone $_mINFESTED_CHISELED_STONE_BRICK;
@@ -771,6 +774,7 @@ final class VanillaBlocks{
 	private static Slab $_mSANDSTONE_SLAB;
 	private static Stair $_mSANDSTONE_STAIRS;
 	private static Wall $_mSANDSTONE_WALL;
+	private static Scaffolding $_mSCAFFOLDING;
 	private static Sculk $_mSCULK;
 	private static Seagrass $_mSEAGRASS;
 	private static SeaLantern $_mSEA_LANTERN;
@@ -794,6 +798,7 @@ final class VanillaBlocks{
 	private static Stair $_mSMOOTH_SANDSTONE_STAIRS;
 	private static Opaque $_mSMOOTH_STONE;
 	private static Slab $_mSMOOTH_STONE_SLAB;
+	private static SnifferEgg $_mSNIFFER_EGG;
 	private static Snow $_mSNOW;
 	private static SnowLayer $_mSNOW_LAYER;
 	private static SoulCampfire $_mSOUL_CAMPFIRE;
@@ -869,6 +874,7 @@ final class VanillaBlocks{
 	private static Slab $_mTUFF_SLAB;
 	private static Stair $_mTUFF_STAIRS;
 	private static Wall $_mTUFF_WALL;
+	private static TurtleEgg $_mTURTLE_EGG;
 	private static NetherVines $_mTWISTING_VINES;
 	private static UnderwaterTorch $_mUNDERWATER_TORCH;
 	private static Vine $_mVINES;
@@ -1124,6 +1130,7 @@ final class VanillaBlocks{
 			"compound_creator" => fn(ChemistryTable $v) => self::$_mCOMPOUND_CREATOR = $v,
 			"concrete" => fn(Concrete $v) => self::$_mCONCRETE = $v,
 			"concrete_powder" => fn(ConcretePowder $v) => self::$_mCONCRETE_POWDER = $v,
+			"conduit" => fn(Conduit $v) => self::$_mCONDUIT = $v,
 			"continuous_potent_sulfur" => fn(ContinuousPotentSulfur $v) => self::$_mCONTINUOUS_POTENT_SULFUR = $v,
 			"copper" => fn(Copper $v) => self::$_mCOPPER = $v,
 			"copper_bars" => fn(CopperBars $v) => self::$_mCOPPER_BARS = $v,
@@ -1377,6 +1384,7 @@ final class VanillaBlocks{
 			"flowering_azalea_leaves" => fn(Leaves $v) => self::$_mFLOWERING_AZALEA_LEAVES = $v,
 			"flower_pot" => fn(FlowerPot $v) => self::$_mFLOWER_POT = $v,
 			"froglight" => fn(Froglight $v) => self::$_mFROGLIGHT = $v,
+			"frog_spawn" => fn(FrogSpawn $v) => self::$_mFROG_SPAWN = $v,
 			"frosted_ice" => fn(FrostedIce $v) => self::$_mFROSTED_ICE = $v,
 			"furnace" => fn(Furnace $v) => self::$_mFURNACE = $v,
 			"gilded_blackstone" => fn(GildedBlackstone $v) => self::$_mGILDED_BLACKSTONE = $v,
@@ -1405,6 +1413,7 @@ final class VanillaBlocks{
 			"hay_bale" => fn(HayBale $v) => self::$_mHAY_BALE = $v,
 			"heavy_core" => fn(HeavyCore $v) => self::$_mHEAVY_CORE = $v,
 			"honeycomb" => fn(Opaque $v) => self::$_mHONEYCOMB = $v,
+			"honey_block" => fn(HoneyBlock $v) => self::$_mHONEY_BLOCK = $v,
 			"hopper" => fn(Hopper $v) => self::$_mHOPPER = $v,
 			"ice" => fn(Ice $v) => self::$_mICE = $v,
 			"infested_chiseled_stone_brick" => fn(InfestedStone $v) => self::$_mINFESTED_CHISELED_STONE_BRICK = $v,
@@ -1677,6 +1686,7 @@ final class VanillaBlocks{
 			"sandstone_slab" => fn(Slab $v) => self::$_mSANDSTONE_SLAB = $v,
 			"sandstone_stairs" => fn(Stair $v) => self::$_mSANDSTONE_STAIRS = $v,
 			"sandstone_wall" => fn(Wall $v) => self::$_mSANDSTONE_WALL = $v,
+			"scaffolding" => fn(Scaffolding $v) => self::$_mSCAFFOLDING = $v,
 			"sculk" => fn(Sculk $v) => self::$_mSCULK = $v,
 			"seagrass" => fn(Seagrass $v) => self::$_mSEAGRASS = $v,
 			"sea_lantern" => fn(SeaLantern $v) => self::$_mSEA_LANTERN = $v,
@@ -1700,6 +1710,7 @@ final class VanillaBlocks{
 			"smooth_sandstone_stairs" => fn(Stair $v) => self::$_mSMOOTH_SANDSTONE_STAIRS = $v,
 			"smooth_stone" => fn(Opaque $v) => self::$_mSMOOTH_STONE = $v,
 			"smooth_stone_slab" => fn(Slab $v) => self::$_mSMOOTH_STONE_SLAB = $v,
+			"sniffer_egg" => fn(SnifferEgg $v) => self::$_mSNIFFER_EGG = $v,
 			"snow" => fn(Snow $v) => self::$_mSNOW = $v,
 			"snow_layer" => fn(SnowLayer $v) => self::$_mSNOW_LAYER = $v,
 			"soul_campfire" => fn(SoulCampfire $v) => self::$_mSOUL_CAMPFIRE = $v,
@@ -1775,6 +1786,7 @@ final class VanillaBlocks{
 			"tuff_slab" => fn(Slab $v) => self::$_mTUFF_SLAB = $v,
 			"tuff_stairs" => fn(Stair $v) => self::$_mTUFF_STAIRS = $v,
 			"tuff_wall" => fn(Wall $v) => self::$_mTUFF_WALL = $v,
+			"turtle_egg" => fn(TurtleEgg $v) => self::$_mTURTLE_EGG = $v,
 			"twisting_vines" => fn(NetherVines $v) => self::$_mTWISTING_VINES = $v,
 			"underwater_torch" => fn(UnderwaterTorch $v) => self::$_mUNDERWATER_TORCH = $v,
 			"vines" => fn(Vine $v) => self::$_mVINES = $v,
@@ -2752,6 +2764,11 @@ final class VanillaBlocks{
 	public static function CONCRETE_POWDER() : ConcretePowder{
 		if(!isset(self::$_mCONCRETE_POWDER)){ self::init(); }
 		return clone self::$_mCONCRETE_POWDER;
+	}
+
+	public static function CONDUIT() : Conduit{
+		if(!isset(self::$_mCONDUIT)){ self::init(); }
+		return clone self::$_mCONDUIT;
 	}
 
 	public static function CONTINUOUS_POTENT_SULFUR() : ContinuousPotentSulfur{
@@ -4019,6 +4036,11 @@ final class VanillaBlocks{
 		return clone self::$_mFROGLIGHT;
 	}
 
+	public static function FROG_SPAWN() : FrogSpawn{
+		if(!isset(self::$_mFROG_SPAWN)){ self::init(); }
+		return clone self::$_mFROG_SPAWN;
+	}
+
 	public static function FROSTED_ICE() : FrostedIce{
 		if(!isset(self::$_mFROSTED_ICE)){ self::init(); }
 		return clone self::$_mFROSTED_ICE;
@@ -4157,6 +4179,11 @@ final class VanillaBlocks{
 	public static function HONEYCOMB() : Opaque{
 		if(!isset(self::$_mHONEYCOMB)){ self::init(); }
 		return clone self::$_mHONEYCOMB;
+	}
+
+	public static function HONEY_BLOCK() : HoneyBlock{
+		if(!isset(self::$_mHONEY_BLOCK)){ self::init(); }
+		return clone self::$_mHONEY_BLOCK;
 	}
 
 	public static function HOPPER() : Hopper{
@@ -5519,6 +5546,11 @@ final class VanillaBlocks{
 		return clone self::$_mSANDSTONE_WALL;
 	}
 
+	public static function SCAFFOLDING() : Scaffolding{
+		if(!isset(self::$_mSCAFFOLDING)){ self::init(); }
+		return clone self::$_mSCAFFOLDING;
+	}
+
 	public static function SCULK() : Sculk{
 		if(!isset(self::$_mSCULK)){ self::init(); }
 		return clone self::$_mSCULK;
@@ -5632,6 +5664,11 @@ final class VanillaBlocks{
 	public static function SMOOTH_STONE_SLAB() : Slab{
 		if(!isset(self::$_mSMOOTH_STONE_SLAB)){ self::init(); }
 		return clone self::$_mSMOOTH_STONE_SLAB;
+	}
+
+	public static function SNIFFER_EGG() : SnifferEgg{
+		if(!isset(self::$_mSNIFFER_EGG)){ self::init(); }
+		return clone self::$_mSNIFFER_EGG;
 	}
 
 	public static function SNOW() : Snow{
@@ -6007,6 +6044,11 @@ final class VanillaBlocks{
 	public static function TUFF_WALL() : Wall{
 		if(!isset(self::$_mTUFF_WALL)){ self::init(); }
 		return clone self::$_mTUFF_WALL;
+	}
+
+	public static function TURTLE_EGG() : TurtleEgg{
+		if(!isset(self::$_mTURTLE_EGG)){ self::init(); }
+		return clone self::$_mTURTLE_EGG;
 	}
 
 	public static function TWISTING_VINES() : NetherVines{

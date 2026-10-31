@@ -32,6 +32,7 @@ use pocketmine\block\tile\Banner as TileBanner;
 use pocketmine\block\tile\Barrel as TileBarrel;
 use pocketmine\block\tile\Beacon as TileBeacon;
 use pocketmine\block\tile\Bed as TileBed;
+use pocketmine\block\tile\Beehive as TileBeehive;
 use pocketmine\block\tile\Bell as TileBell;
 use pocketmine\block\tile\BlastFurnace as TileBlastFurnace;
 use pocketmine\block\tile\BrewingStand as TileBrewingStand;
@@ -40,11 +41,15 @@ use pocketmine\block\tile\Cauldron as TileCauldron;
 use pocketmine\block\tile\Chest as TileChest;
 use pocketmine\block\tile\ChiseledBookshelf as TileChiseledBookshelf;
 use pocketmine\block\tile\Comparator as TileComparator;
+use pocketmine\block\tile\Conduit as TileConduit;
 use pocketmine\block\tile\CopperGolemStatue as TileCopperGolemStatue;
 use pocketmine\block\tile\DaylightSensor as TileDaylightSensor;
 use pocketmine\block\tile\DecoratedPot as TileDecoratedPot;
+use pocketmine\block\tile\Dispenser as TileDispenser;
+use pocketmine\block\tile\Dropper as TileDropper;
 use pocketmine\block\tile\EnchantTable as TileEnchantingTable;
 use pocketmine\block\tile\EnderChest as TileEnderChest;
+use pocketmine\block\tile\EndPortal as TileEndPortal;
 use pocketmine\block\tile\FlowerPot as TileFlowerPot;
 use pocketmine\block\tile\GlowingItemFrame as TileGlowingItemFrame;
 use pocketmine\block\tile\HangingSign as TileHangingSign;
@@ -52,10 +57,12 @@ use pocketmine\block\tile\Hopper as TileHopper;
 use pocketmine\block\tile\ItemFrame as TileItemFrame;
 use pocketmine\block\tile\Jukebox as TileJukebox;
 use pocketmine\block\tile\Lectern as TileLectern;
+use pocketmine\block\tile\Lodestone as TileLodestone;
 use pocketmine\block\tile\MobHead as TileMobHead;
 use pocketmine\block\tile\MonsterSpawner as TileMonsterSpawner;
 use pocketmine\block\tile\NormalFurnace as TileNormalFurnace;
 use pocketmine\block\tile\Note as TileNote;
+use pocketmine\block\tile\PistonArm as TilePistonArm;
 use pocketmine\block\tile\PotentSulfur as TilePotentSulfur;
 use pocketmine\block\tile\ShulkerBox as TileShulkerBox;
 use pocketmine\block\tile\Sign as TileSign;
@@ -1182,8 +1189,8 @@ final class VanillaBlocksInputs extends RegistrySource{
 		self::register("potion_cauldron", fn(BID $id) => new PotionCauldron($id, "Potion Cauldron", $cauldronBreakInfo), TileCauldron::class);
 	}
 	private function registerBlocksR19Plus() : void{
-		self::register("bee_nest", fn(BID $id) => new BeeNest($id, "Bee Nest", new Info(BreakInfo::axe(0.3))));
-		self::register("beehive", fn(BID $id) => new BeeHive($id, "Beehive", new Info(BreakInfo::axe(0.6))));
+		self::register("bee_nest", fn(BID $id) => new BeeNest($id, "Bee Nest", new Info(BreakInfo::axe(0.3))), TileBeehive::class);
+		self::register("beehive", fn(BID $id) => new BeeHive($id, "Beehive", new Info(BreakInfo::axe(0.6))), TileBeehive::class);
 		self::register("bush", fn(BID $id) => new Bush($id, "Bush", new Info(BreakInfo::instant(), [Tags::POTTABLE_PLANTS])));
 		self::register("cherry_sapling", fn(BID $id) => new CherrySapling($id, "Cherry Sapling", new Info(BreakInfo::instant(), [Tags::POTTABLE_PLANTS])));
 		self::register("composter", fn(BID $id) => new Composter($id, "Composter", new Info(BreakInfo::axe(0.6))));
@@ -1200,11 +1207,11 @@ final class VanillaBlocksInputs extends RegistrySource{
 
 		self::register("decorated_pot", fn(BID $id) => new DecoratedPot($id, "Decorated Pot", new Info(BreakInfo::instant())), TileDecoratedPot::class);
 		self::register("dripstone_block", fn(BID $id) => new Opaque($id, "Dripstone Block", new Info(BreakInfo::pickaxe(1.5, ToolTier::WOOD, 5.0))));
-		self::register("end_portal", fn(BID $id) => new EndPortal($id, "End Portal", new Info(BreakInfo::indestructible(18000000.0))));
+		self::register("end_portal", fn(BID $id) => new EndPortal($id, "End Portal", new Info(BreakInfo::indestructible(18000000.0))), TileEndPortal::class);
 		self::register("firefly_bush", fn(BID $id) => new FireflyBush($id, "Firefly Bush", new Info(BreakInfo::instant(), [Tags::POTTABLE_PLANTS])));
 		self::register("grindstone", fn(BID $id) => new Grindstone($id, "Grindstone", new Info(BreakInfo::pickaxe(2.0, ToolTier::WOOD, 30.0))));
 		self::register("leaf_litter", fn(BID $id) => new LeafLitter($id, "Leaf Litter", new Info(BreakInfo::instant())));
-		self::register("lodestone", fn(BID $id) => new Opaque($id, "Lodestone", new Info(BreakInfo::pickaxe(3.5, ToolTier::WOOD, 17.5))));
+		self::register("lodestone", fn(BID $id) => new Opaque($id, "Lodestone", new Info(BreakInfo::pickaxe(3.5, ToolTier::WOOD, 17.5))), TileLodestone::class);
 		self::register("moss_block", fn(BID $id) => new Opaque($id, "Moss Block", new Info(BreakInfo::hoe(0.1))));
 		self::register("moss_carpet", fn(BID $id) => new MossCarpet($id, "Moss Carpet", new Info(new BreakInfo(0.1))));
 		self::register("short_dry_grass", fn(BID $id) => new DryGrass($id, "Short Dry Grass", new Info(BreakInfo::instant(ToolType::SHEARS, 1))));
@@ -1222,12 +1229,18 @@ final class VanillaBlocksInputs extends RegistrySource{
 		self::register("closed_eyeblossom", fn(BID $id) => new Flower($id, "Closed Eyeblossom", $eyeblossomInfo));
 		self::register("pale_oak_sapling", fn(BID $id) => new CherrySapling($id, "Pale Oak Sapling", new Info(BreakInfo::instant(), [Tags::POTTABLE_PLANTS])));
 		self::register("creaking_heart", fn(BID $id) => new CreakingHeart($id, "Creaking Heart", new Info(BreakInfo::axe(5.0))));
-		self::register("piston", fn(BID $id) => new Piston($id, "Piston", new Info(new BreakInfo(1.5, ToolType::PICKAXE))));
-		self::register("sticky_piston", fn(BID $id) => new Piston($id, "Sticky Piston", new Info(new BreakInfo(1.5, ToolType::PICKAXE))));
+		self::register("piston", fn(BID $id) => new Piston($id, "Piston", new Info(new BreakInfo(1.5, ToolType::PICKAXE))), TilePistonArm::class);
+		self::register("sticky_piston", fn(BID $id) => new Piston($id, "Sticky Piston", new Info(new BreakInfo(1.5, ToolType::PICKAXE))), TilePistonArm::class);
 		self::register("piston_arm_collision", fn(BID $id) => new PistonArmCollision($id, "Piston Arm Collision", new Info(BreakInfo::indestructible())));
 		self::register("sticky_piston_arm_collision", fn(BID $id) => new PistonArmCollision($id, "Sticky Piston Arm Collision", new Info(BreakInfo::indestructible())));
-		self::register("dispenser", fn(BID $id) => new Dispenser($id, "Dispenser", new Info(BreakInfo::pickaxe(3.5, ToolTier::WOOD))));
-		self::register("dropper", fn(BID $id) => new Dispenser($id, "Dropper", new Info(BreakInfo::pickaxe(3.5, ToolTier::WOOD))));
+		self::register("dispenser", fn(BID $id) => new Dispenser($id, "Dispenser", new Info(BreakInfo::pickaxe(3.5, ToolTier::WOOD))), TileDispenser::class);
+		self::register("dropper", fn(BID $id) => new Dispenser($id, "Dropper", new Info(BreakInfo::pickaxe(3.5, ToolTier::WOOD))), TileDropper::class);
 		self::register("observer", fn(BID $id) => new Observer($id, "Observer", new Info(BreakInfo::pickaxe(3.0, ToolTier::WOOD))));
+		self::register("turtle_egg", fn(BID $id) => new TurtleEgg($id, "Turtle Egg", new Info(new BreakInfo(0.5))));
+		self::register("sniffer_egg", fn(BID $id) => new SnifferEgg($id, "Sniffer Egg", new Info(new BreakInfo(0.5))));
+		self::register("scaffolding", fn(BID $id) => new Scaffolding($id, "Scaffolding", new Info(BreakInfo::instant())));
+		self::register("frog_spawn", fn(BID $id) => new FrogSpawn($id, "Frog Spawn", new Info(BreakInfo::instant())));
+		self::register("conduit", fn(BID $id) => new Conduit($id, "Conduit", new Info(BreakInfo::pickaxe(3.0))), TileConduit::class);
+		self::register("honey_block", fn(BID $id) => new HoneyBlock($id, "Honey Block", new Info(BreakInfo::instant())));
 	}
 }
