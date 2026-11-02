@@ -928,8 +928,14 @@ final class BlockTypeIds{
 	public const DISPENSER = 10896;
 	public const DROPPER = 10897;
 	public const OBSERVER = 10898;
+	public const TURTLE_EGG = 10899;
+	public const SNIFFER_EGG = 10900;
+	public const SCAFFOLDING = 10901;
+	public const FROG_SPAWN = 10902;
+	public const CONDUIT = 10903;
+	public const HONEY_BLOCK = 10904;
 
-	public const FIRST_UNUSED_BLOCK_ID = 10899;
+	public const FIRST_UNUSED_BLOCK_ID = 10905;
 
 	private static int $nextDynamicId = self::FIRST_UNUSED_BLOCK_ID;
 
